@@ -14,6 +14,7 @@ function App() {
             <Player2 initialName="ΠΑΙΚΤΗΣ 2" symbol="X" />
           </li>
         </ol>
+        <GameBoard />
       </div>
     </main>
   );
