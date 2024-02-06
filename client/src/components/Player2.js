@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import EditButton from './EditButton';
 
 const Player2 = ({ initialName = 'ΠΑΙΚΤΗΣ 2', symbol }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -9,14 +10,20 @@ const Player2 = ({ initialName = 'ΠΑΙΚΤΗΣ 2', symbol }) => {
       <span className="player">
         <span className="player-symbol">{symbol}</span>
         {isEditing ? (
-          <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} required />
+          <input
+            type="text"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            required
+          />
         ) : (
           <span className="player-name">{playerName}</span>
         )}
       </span>
-      <button onClick={() => setIsEditing((isEditing) => !isEditing)}>
-        {isEditing ? 'Save' : 'Edit'}
-      </button>
+      <EditButton
+        onClick={() => setIsEditing((isEditing) => !isEditing)}
+        isEditing={isEditing}
+      />
     </>
   );
 };
