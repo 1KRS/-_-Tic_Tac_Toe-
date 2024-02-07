@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import EditButton from './EditButton';
 
-const Player = ({ id, initialName, symbol }) => {
+const Player = ({ initialName, symbol }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(
-    initialName ? initialName : id === 'O' ? 'PLAYER 1' : 'PLAYER 2'
+    initialName ? initialName : symbol === 'O' ? 'PLAYER 1' : 'PLAYER 2'
   );
 
-  return id === 'O' ? (
+  return symbol === 'O' ? (
     <>
       <EditButton
         onClick={() => setIsEditing((isEditing) => !isEditing)}
