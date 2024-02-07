@@ -1,24 +1,32 @@
 import { useState } from 'react';
 import GameBoard from './components/GameBoard';
-import Player1 from './components/Player1';
-import Player2 from './components/Player2';
+import Player from './components/Player';
+import Log from './components/Log';
 
 function App() {
-  const [playerOne, setPlayerOne] = useState(true);
+  const [turnLogs, setTurnLogs] = useState(['']);
+
+  const turnsPlayed = turnLogs.length;
+  const symbol = turnsPlayed % 2 === 0 ? 'X' : 'O';
 
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <li className={playerOne ? 'active' : ''}>
-            <Player1 initialName="ΠΑΙΚΤΗΣ 1" symbol="O" />
+          <li className={symbol === 'O' ? 'active' : ''}>
+            <Player id='O' symbol='O'/>
           </li>
-          <li className={playerOne ? '' : 'active'}>
-            <Player2 initialName="ΠΑΙΚΤΗΣ 2" symbol="X" />
+          <li className={symbol === 'X' ? 'active' : ''}>
+            <Player id='X' symbol='X'/>
           </li>
         </ol>
-        <GameBoard playerOne={playerOne} setPlayerOne={setPlayerOne} />
+        <GameBoard
+          symbol={symbol}
+          turnLogs={turnLogs}
+          setTurnLogs={setTurnLogs}
+        />
       </div>
+      <Log turnLogs={turnLogs} />
     </main>
   );
 }

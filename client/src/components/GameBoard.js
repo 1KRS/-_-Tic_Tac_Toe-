@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const GameBoard = ({ playerOne, setPlayerOne }) => {
+const GameBoard = ({ turnLogs, setTurnLogs, symbol }) => {
   const [board, setBoard] = useState([
     [null, null, null],
     [null, null, null],
@@ -8,14 +8,20 @@ const GameBoard = ({ playerOne, setPlayerOne }) => {
   ]);
 
   const handleClick = (rowIndex, colIndex) => {
-    setBoard((prevBoard) => {
-      const symbol = playerOne ? 'O' : 'X';
 
+    setBoard((prevBoard) => {
       const updatedBoard = [...prevBoard.map((innerArray) => [...innerArray])];
       updatedBoard[rowIndex][colIndex] = symbol;
       return updatedBoard;
     });
-    setPlayerOne((playerOne) => !playerOne);
+
+    setTurnLogs(() => {
+      const newTurn = [
+        `Player ${symbol} played at position { ${rowIndex + 1}-${colIndex + 1} }`,
+      ];
+      const updatedLog = [...newTurn, ...turnLogs];
+      return updatedLog;
+    });
   };
 
   return (
