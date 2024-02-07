@@ -32,7 +32,7 @@ const GameBoard = ({ turnLogs, setTurnLogs, symbol }) => {
             <ol>
               {row.map((box, colIndex) => (
                 <li key={colIndex}>
-                  <button onClick={() => handleClick(rowIndex, colIndex)}>
+                  <button onClick={() => handleClick(rowIndex, colIndex)} disabled={box !== null}>
                     {box}
                   </button>
                 </li>
