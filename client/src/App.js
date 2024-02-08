@@ -2,15 +2,17 @@ import { useState } from 'react';
 import GameBoard from './components/GameBoard';
 import Player from './components/Player';
 import Log from './components/Log';
-import  {WINNING_COMBINATIONS}  from './winning-combinations';
+import { WINNING_COMBINATIONS } from './winning-combinations';
+import GameOver from './components/GameOver';
 
 function App() {
-  const [turnLogs, setTurnLogs] = useState(['']);
-  const [board, setBoard] = useState([
+  const [turnLogs, setTurnLogs] = useState([]);
+  const initialBoard = [
     [null, null, null],
     [null, null, null],
     [null, null, null],
-  ]);
+  ]
+  const [board, setBoard] = useState(initialBoard);
 
   const turnsPlayed = turnLogs.length;
   const symbol = turnsPlayed % 2 === 0 ? 'X' : 'O';
@@ -22,16 +24,21 @@ function App() {
       return updatedBoard;
     });
 
-    setTurnLogs(() => {
+    setTurnLogs((prevTurnLogs) => {
       const newTurn = [
         `Player ${symbol} played at position { ${rowIndex + 1}-${
           colIndex + 1
         } }`,
       ];
-      const updatedLog = [...newTurn, ...turnLogs];
+      const updatedLog = [...newTurn, ...prevTurnLogs];
       return updatedLog;
     });
   };
+
+  const handleRematch = () => {
+    setTurnLogs([])
+    setBoard(initialBoard)
+  }
 
   let winner;
 
@@ -45,6 +52,8 @@ function App() {
     }
   }
 
+  let isADraw = turnsPlayed === 9 && !winner
+
   return (
     <main>
       <div id="game-container">
@@ -56,7 +65,7 @@ function App() {
             <Player symbol="X" />
           </li>
         </ol>
-        {winner && <div>Winner: {winner}</div> }
+        {(winner || isADraw) && <GameOver winner={winner} handleRematch={handleRematch}/>}
         <GameBoard
           symbol={symbol}
           turnLogs={turnLogs}

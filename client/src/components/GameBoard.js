@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-const GameBoard = ({ turnLogs, setTurnLogs, symbol, board, setBoard, handleClick }) => {
+const GameBoard = ({ board, handleClick }) => {
 
   return (
     <>
