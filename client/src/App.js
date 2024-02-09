@@ -13,6 +13,7 @@ function App() {
     [null, null, null],
   ]
   const [board, setBoard] = useState(initialBoard);
+  const [players, setPlayers] = useState({O: 'Player 1', X: 'Player 2'})
 
   const turnsPlayed = turnLogs.length;
   const symbol = turnsPlayed % 2 === 0 ? 'X' : 'O';
@@ -35,6 +36,15 @@ function App() {
     });
   };
 
+  const handleChangePlayerName = (symbol, newName) => {
+    setPlayers((prevPlayers) => {
+      return{
+        ...prevPlayers,
+        [symbol]: newName
+      }
+    })
+  }
+
   const handleRematch = () => {
     setTurnLogs([])
     setBoard(initialBoard)
@@ -48,7 +58,8 @@ function App() {
     const thirdBox = board[combination[2].row][combination[2].column];
 
     if (firstBox && firstBox === secondBox && firstBox === thirdBox) {
-      winner = firstBox;
+      winner = players[firstBox];
+      console.log(players);
     }
   }
 
@@ -59,10 +70,10 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <li className={symbol === 'O' ? 'active' : ''}>
-            <Player symbol="O" />
+            <Player symbol="O" handleChangePlayerName={handleChangePlayerName}/>
           </li>
           <li className={symbol === 'X' ? 'active' : ''}>
-            <Player symbol="X" />
+            <Player symbol="X" handleChangePlayerName={handleChangePlayerName}/>
           </li>
         </ol>
         {(winner || isADraw) && <GameOver winner={winner} handleRematch={handleRematch}/>}

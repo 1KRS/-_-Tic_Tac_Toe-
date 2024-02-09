@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import EditButton from './EditButton';
 
-const Player = ({ initialName, symbol }) => {
+const Player = ({ initialName, symbol, handleChangePlayerName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(
     initialName ? initialName : symbol === 'O' ? 'PLAYER 1' : 'PLAYER 2'
@@ -10,7 +10,11 @@ const Player = ({ initialName, symbol }) => {
   return symbol === 'O' ? (
     <>
       <EditButton
-        onClick={() => setIsEditing((isEditing) => !isEditing)}
+        onClick={() => {
+          isEditing === true && handleChangePlayerName(symbol, playerName)
+          console.log(`${symbol} άλλαξε σε ${playerName}`)
+          setIsEditing((isEditing) => !isEditing)
+        }}
         isEditing={isEditing}
       />
       <span className="player">
