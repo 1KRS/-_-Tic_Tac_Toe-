@@ -11,12 +11,12 @@ function App() {
     [null, null, null],
     [null, null, null],
     [null, null, null],
-  ]
+  ];
   const [board, setBoard] = useState(initialBoard);
-  const [players, setPlayers] = useState({O: 'Player 1', X: 'Player 2'})
+  const [players, setPlayers] = useState({ O: 'Player 1', X: 'Player 2' });
 
   const turnsPlayed = turnLogs.length;
-  const symbol = turnsPlayed % 2 === 0 ? 'X' : 'O';
+  const symbol = turnsPlayed % 2 === 0 ? 'O' : 'X';
 
   const handleClick = (rowIndex, colIndex) => {
     setBoard((prevBoard) => {
@@ -38,17 +38,17 @@ function App() {
 
   const handleChangePlayerName = (symbol, newName) => {
     setPlayers((prevPlayers) => {
-      return{
+      return {
         ...prevPlayers,
-        [symbol]: newName
-      }
-    })
-  }
+        [symbol]: newName,
+      };
+    });
+  };
 
   const handleRematch = () => {
-    setTurnLogs([])
-    setBoard(initialBoard)
-  }
+    setTurnLogs([]);
+    setBoard(initialBoard);
+  };
 
   let winner;
 
@@ -63,20 +63,28 @@ function App() {
     }
   }
 
-  let isADraw = turnsPlayed === 9 && !winner
+  let isADraw = turnsPlayed === 9 && !winner;
 
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <li className={symbol === 'O' ? 'active' : ''}>
-            <Player symbol="O" handleChangePlayerName={handleChangePlayerName}/>
+            <Player
+              symbol="O"
+              handleChangePlayerName={handleChangePlayerName}
+            />
           </li>
           <li className={symbol === 'X' ? 'active' : ''}>
-            <Player symbol="X" handleChangePlayerName={handleChangePlayerName}/>
+            <Player
+              symbol="X"
+              handleChangePlayerName={handleChangePlayerName}
+            />
           </li>
         </ol>
-        {(winner || isADraw) && <GameOver winner={winner} handleRematch={handleRematch}/>}
+        {(winner || isADraw) && (
+          <GameOver winner={winner} handleRematch={handleRematch} />
+        )}
         <GameBoard
           symbol={symbol}
           turnLogs={turnLogs}
