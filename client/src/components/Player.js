@@ -11,9 +11,8 @@ const Player = ({ initialName, symbol, handleChangePlayerName }) => {
     <>
       <EditButton
         onClick={() => {
-          isEditing === true && handleChangePlayerName(symbol, playerName)
-          console.log(`${symbol} άλλαξε σε ${playerName}`)
-          setIsEditing((isEditing) => !isEditing)
+          isEditing === true && handleChangePlayerName(symbol, playerName);
+          setIsEditing((isEditing) => !isEditing);
         }}
         isEditing={isEditing}
       />
@@ -47,7 +46,10 @@ const Player = ({ initialName, symbol, handleChangePlayerName }) => {
         )}
       </span>
       <EditButton
-        onClick={() => setIsEditing((isEditing) => !isEditing)}
+        onClick={() => {
+          isEditing === true && handleChangePlayerName(symbol, playerName);
+          setIsEditing((isEditing) => !isEditing);
+        }}
         isEditing={isEditing}
       />
     </>
